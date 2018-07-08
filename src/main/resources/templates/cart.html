@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    <script src="js/jquery-1.12.4.min.js" th:src="@{/js/jquery-1.12.4.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="js/lottery.js" th:src="@{/js/lottery.js}" type="text/javascript" charset="utf-8"></script>
+    <title>购物车</title>
+</head>
+<style type="text/css">
+    .title {
+        width: 360px;
+        height: 47px;
+        color: rgba(16, 16, 16, 1);
+        font-size: 18px;
+        text-align: center;
+        font-family: PingFang SC;
+        background-color: gainsboro;
+        line-height: 47px;
+    }
+
+    .ball-item3 {
+
+        width: 32px;
+        height: 32px;
+        line-height: 20px;
+        font-size: 14px;
+        text-align: center;
+        font-family: Roboto;
+        border: 1px solid rgba(187, 187, 187, 1);
+        border-radius: 100%;
+        line-height: 32px;
+        display: inline-block;
+        margin-right: 4px;
+    }
+
+    .ball-red {
+        color: red;
+    }
+
+    .ball-blue {
+        color: blue;
+    }
+    .menu{
+        text-align: center;
+        background-color: gainsboro;
+        padding-top: 5px;
+        position: fixed;
+        width: 100%;
+        bottom: 0px;
+    }
+    .menu-item-active{
+        color: red;
+    }
+</style>
+
+<body>
+<div class="container-fluid">
+    <!--顶部标签栏-->
+    <div class="row">
+
+        <div class="col-xs-12 title">
+            <div style="position: absolute;left: 0;" onclick="javascript:history.go(-1)">
+						<span class="glyphicon glyphicon-chevron-left">
+				</span>返回
+            </div> 双色球
+        </div>
+    </div>
+    <!--轮播图-->
+    <div id="carousel-example-generic" class="carousel slide row" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active"><img src="img/1.png" th:src="@{/img/1.png}">
+                <div class="carousel-caption"></div>
+            </div>
+            <div class="item"><img src="img/2.png" th:src="@{/img/2.png}">
+                <div class="carousel-caption"></div>
+            </div>
+            <div class="item"><img src="img/3.png"  th:src="@{/img/3.png}">
+                <div class="carousel-caption"></div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <!--中奖历史-->
+    <div class="row" style="border: solid gainsboro 1px;">
+        <div class="col-xs-12">
+            <div class="" style="float: left;">
+                第2018017期
+            </div>
+            <div class="" style="float: right;">
+                奖池<span style="color: red;">4亿1532万</span>,可以开出<span style="color: red;">83注</span>500万
+            </div>
+        </div>
+    </div>
+
+
+    <!--机选按钮-->
+    <div class="row"style="margin-top: 6px;margin-bottom: 8px;">
+        <div class="col-xs-4">
+            <input type="button" name="" onclick="tiaozhuan('/cart/selectUI')" value="+ 手动选号" class="btn btn-default"/>
+        </div>
+        <div class="col-xs-4">
+            <input type="button" onclick="tiaozhuan('/cart/selectUI?flag=true')"  value="+ 机选一注" class="btn btn-default"/>
+
+        </div>
+        <div class="col-xs-4">
+            <input type="button" name="" onclick="clearAll()" value="+ 清空列表" class="btn btn-default"/>
+
+        </div>
+    </div>
+
+<script>
+function clearAll() {
+    var flag = confirm("请确定清空购物车吗")
+    if (flag) {
+        location.href="/cart/clear";
+    }
+    
+}
+function deleteOne(key) {
+    var flag = confirm("您确定删除这一注彩票吗")
+    if(flag){
+        location.href="/cart/remove?key="+key;
+    }
+}
+    
+
+</script>
+
+
+
+    <!--购物车的号码-->
+    <div class="row" style="border: gainsboro solid 1px; padding: 10px;" th:each="item:${session.cart.getCartItem()}">
+        <div class="col-xs-1" style="padding-left: 5px;margin-top: 20px;" th:onclick="|deleteOne('${item.red}-${item.blue}')|">
+            <span class="glyphicon glyphicon-remove-circle" ></span>
+        </div>
+        <div class="col-xs-10" >
+            <div class="row">
+                <div class="ball-item3 ball-red" th:text="${item.red.split(',')[0]}">01</div>
+                <div class="ball-item3 ball-red" th:text="${item.red.split(',')[1]}">08</div>
+                <div class="ball-item3 ball-red" th:text="${item.red.split(',')[2]}">15</div>
+                <div class="ball-item3 ball-red" th:text="${item.red.split(',')[3]}">18</div>
+                <div class="ball-item3 ball-red" th:text="${item.red.split(',')[4]}">25</div>
+                <div class="ball-item3 ball-red" th:text="${item.red.split(',')[5]}">29</div>
+                <div class="ball-item3 ball-blue" th:text="${item.blue}">08</div>
+
+            </div>
+            <div style="margin-top: 7px; margin-left: -13px;" th:text="|单式${item.count}注${item.subTotal}元|" >
+                单式 1注 2元
+            </div>
+        </div>
+        <div class="col-xs-1" style="padding-left: 13px;margin-top: 20px;">
+            <span class="glyphicon glyphicon-chevron-right" ></span>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--底部菜单栏-->
+    <div class="row  menu" onclick="tiaozhuan('/order/details')" >
+        <div class="col-xs-12" style="height: 50px;line-height: 50px;">
+            <span th:text="|立即付款${session.cart.gettotal()}元|">12元</span>
+        </div>
+
+
+    </div>
+    <div style="height: 75px;">
+
+    </div>
+
+</div>
+
+
+
+</div>
+
+</body>
+
+</html>

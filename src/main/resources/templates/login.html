@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    <script src="js/jquery-1.12.4.min.js" th:src="@{/js/jquery-1.12.4.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="js/lottery.js" th:src="@{/js/lottery.js}" type="text/javascript" charset="utf-8"></script>
+    <title>登录</title>
+</head>
+<style type="text/css">
+    .title {
+        width: 360px;
+        height: 47px;
+        color: rgba(16, 16, 16, 1);
+        font-size: 18px;
+        text-align: center;
+        font-family: PingFang SC;
+        background-color: gainsboro;
+        line-height: 47px;
+    }
+
+    .ball-item {
+        left: 8px;
+        top: 384px;
+        width: 36px;
+        height: 40px;
+        line-height: 20px;
+        font-size: 14px;
+        text-align: center;
+        font-family: Roboto;
+        border: 1px solid rgba(187, 187, 187, 1);
+        border-radius: 100%;
+        line-height: 40px;
+        display: inline-block;
+        margin-right: 4px;
+    }
+
+    .ball-red {
+        color: red;
+    }
+
+    .ball-blue {
+        color: blue;
+    }
+
+    .menu {
+        text-align: center;
+        background-color: gainsboro;
+        padding-top: 5px;
+        position: fixed;
+        width: 100%;
+        bottom: 0px;
+    }
+
+    .menu-item-active {
+        color: red;
+
+    }
+</style>
+
+<body>
+<div class="container-fluid">
+    <!--顶部标签栏-->
+    <div class="row">
+        <div class="col-xs-12 title">
+            注册
+        </div>
+    </div>
+
+    <!--登录注册提示-->
+    <div class="row text-center" style="margin-top: 30px;">
+        <div class="col-xs-1">
+
+        </div>
+        <div class="col-xs-10">
+            <div class="row">
+                <div class="col-xs-6 " onclick="tiaozhuan('/user/registerUI')">
+                    注册
+                </div>
+                <div class="col-xs-6" style="color: green;font-weight: bolder;">
+                    登录
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--分割线-->
+    <hr style="border: solid gainsboro 2px; width: 80%; margin-top: 10px;" />
+
+    <!--输入信息表单-->
+
+    <div class="row">
+        <div class="col-xs-1">
+
+        </div>
+        <div class="col-xs-10">
+
+            <form action="#" th:action="@{/user/login}" method="post">
+                <div class="form-group">
+                    <input type="text" class="form-control"  name="email" placeholder="请输入邮箱.."/>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" placeholder="请输入密码..`"/>
+                </div>
+                <div style="color:red;" th:text="${msg}"></div>
+
+                <input type="submit" value="登录" class="btn btn-default" style="float: right; padding-left: 30px;padding-right: 30px; margin-top: 20px;"/>
+                <div class="row">
+                    <div class="col-xs-12" style="margin-top: 80px;">
+                        <a href="#" th:href="@{/user/resetUI}" style="color: green;">忘记密码?</a> | <a href="#" th:href="@{/user/registerUI}" style="color: green;">去注册</a>
+                    </div>
+                </div>
+
+
+        <div class="col-xs-1">
+
+        </div>
+
+
+        </form>
+    </div>
+
+    <!--已经有账号的情况-->
+
+
+</div>
+
+</body>
+
+</html>

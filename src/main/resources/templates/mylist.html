@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    <script src="js/jquery-1.12.4.min.js" th:src="@{/js/jquery-1.12.4.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="js/lottery.js" th:src="@{/js/lottery.js}" type="text/javascript" charset="utf-8"></script>
+    <title>我的订单</title>
+</head>
+<style type="text/css">
+    .title {
+        width: 360px;
+        height: 47px;
+        color: rgba(16, 16, 16, 1);
+        font-size: 18px;
+        text-align: center;
+        font-family: PingFang SC;
+        background-color: gainsboro;
+        line-height: 47px;
+    }
+
+    .ball-item3 {
+        width: 32px;
+        height: 32px;
+        line-height: 20px;
+        font-size: 14px;
+        text-align: center;
+        font-family: Roboto;
+        border: 1px solid rgba(187, 187, 187, 1);
+        border-radius: 100%;
+        line-height: 32px;
+        display: inline-block;
+        margin-right: 4px;
+    }
+
+    .ball-red {
+        color: red;
+    }
+
+    .ball-blue {
+        color: blue;
+    }
+
+    .menu {
+        text-align: center;
+        background-color: gainsboro;
+        padding-top: 5px;
+        position: fixed;
+        width: 100%;
+        bottom: 0px;
+    }
+
+    .menu-item-active {
+        color: red;
+    }
+
+    .paytype {
+        border: solid gainsboro 1px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+</style>
+
+<body>
+<div class="container-fluid">
+    <!--顶部标签栏-->
+    <div class="row">
+
+        <div class="col-xs-12 title">
+            <div style="position: absolute;left: 0;" onclick="javascript:history.go(-1)">
+						<span class="glyphicon glyphicon-chevron-left">
+				</span>返回
+            </div> 我的订单
+        </div>
+    </div>
+
+    <div th:each="order:${orders}">
+    <div class="row"  style="margin-top: 5px;margin-bottom: 5px;background-color: cornsilk" >
+
+
+        <div class="row" >
+            <div class="col-xs-4">
+                第2018018期
+            </div>
+            <div class="col-xs-4">
+                开奖时间
+            </div>
+            <div class="col-xs-4" th:text="|金额:${order.total}元|">
+                金额:6元
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12" th:text="|订单编号:${order.oid}|">
+                订单编号:201802947984092
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                订单状态:<span>未付款 </span>
+            </div>
+        </div>
+    </div>
+    <!--购物车的号码-->
+    <div class="row" style="border: gainsboro solid 1px; padding: 10px;"th:each="item:${order.orderItems}">
+        <div class="col-xs-1" style="padding-left: 5px;margin-top: 20px;">
+
+        </div>
+        <div class="col-xs-10">
+            <div class="row">
+                <div class="ball-item3 ball-red" th:text="${item.red.split(',')[0]}">01</div>
+                <div class="ball-item3 ball-red" th:text="${item.red.split(',')[1]}">08</div>
+                <div class="ball-item3 ball-red" th:text="${item.red.split(',')[2]}">15</div>
+                <div class="ball-item3 ball-red" th:text="${item.red.split(',')[3]}">18</div>
+                <div class="ball-item3 ball-red" th:text="${item.red.split(',')[4]}">25</div>
+                <div class="ball-item3 ball-red" th:text="${item.red.split(',')[5]}">29</div>
+                <div class="ball-item3 ball-blue" th:text="${item.blue}">08</div>
+
+            </div>
+            <div style="margin-top: 7px; margin-left: -13px;"th:text="|单式${item.count}注${item.count*2}元|">
+                单式 1注 2元
+            </div>
+        </div>
+        <div class="col-xs-1" style="padding-left: 13px;margin-top: 20px;">
+
+        </div>
+    </div>
+
+    </div>
+
+
+
+
+
+
+
+</div>
+
+
+
+</div>
+
+</div>
+
+</body>
+
+</html>

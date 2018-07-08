@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+    <script src="js/jquery-1.12.4.min.js" th:src="@{/js/jquery-1.12.4.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="js/lottery.js" th:src="@{/js/lottery.js}" type="text/javascript" charset="utf-8"></script>
+    <title>修改头像</title>
+</head>
+<style>
+    .title {
+        width: 360px;
+        height: 47px;
+        color: rgba(16, 16, 16, 1);
+        font-size: 18px;
+        text-align: center;
+        font-family: PingFang SC;
+        background-color: gainsboro;
+        line-height: 47px;
+    }
+</style>
+<body>
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-xs-12 title">
+            <div style="position: absolute;left: 0;" onclick="location.href='/'">
+						<span class="glyphicon glyphicon-chevron-left">
+				</span>返回
+            </div> 修改头像
+        </div>
+    </div>
+
+
+    <div style="margin-top: 50px;">
+        <img th:src="|@{/get}${session.user.headimg}|" src="img/IMG_0452.JPG" class="img-thumbnail center-block" style="width: 80%;height: 300px">
+    </div>
+
+    <div>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="icon" class="form-control center-block " style="margin: 20px auto;" />
+
+            <input type="submit" class="btn btn-primary center-block" value="点击上传"  />
+        </form>
+    </div>
+</div>
+</body>
+</html>
